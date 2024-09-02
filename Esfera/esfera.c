@@ -8,7 +8,7 @@ void esfera (float r, float* area, float* volume);
 A área da superfície e o volume são dados, respectivamente por 4pir^2 e 4pir^3
 / 3. */
 
-// Função chamada esfera que vai calcular a area e o volume da esfera
+// função chamada esfera que vai calcular a area e o volume da esfera
 void esfera(float r, float* area, float* volume) {
     //raio
     r = 2.0;
