@@ -134,4 +134,6 @@ void main(){
      libera(L);
      
      system("PAUSE");     
+    //  tenho que mudar algumas funções 
+    
 }
