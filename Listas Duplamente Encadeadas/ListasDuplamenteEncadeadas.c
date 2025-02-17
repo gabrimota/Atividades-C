@@ -5,7 +5,7 @@
 struct lista{
        int info;
        struct lista * prox;      
-        struct lista * ant;
+        struct lista * antes;
 };
 
 typedef struct lista Lista;
@@ -26,16 +26,30 @@ Lista * inserir(Lista * pL, int valor){
       if(novo != NULL){
          novo->info = valor;
          novo->prox = pL;
-         novo->ant = NULL;
+         novo->antes = NULL;
          if (pL != NULL)
          {
-         pL -> prox = novo;
+         pL -> antes = novo;
          }
          
          printf("Lista[%d] \n", novo->info);
          return novo;        
       } 
-}
+} 
+    // Forma mais segura
+// Lista* inserir(Lista* pL, int valor) {
+//     Lista* novo = (Lista*)malloc(sizeof(Lista));
+//     if (novo == NULL) {
+//         printf("Erro ao alocar memória.\n");
+//         return pL;
+//     }
+//     novo->info = valor;
+//     novo->prox = pL;
+//     novo->ant = NULL;
+//     if (pL != NULL)
+//         pL->ant = novo;
+//     return novo;
+// }
 
 void imprimir(Lista * pL){
      
