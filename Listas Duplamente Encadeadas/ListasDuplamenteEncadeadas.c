@@ -4,7 +4,8 @@
 
 struct lista{
        int info;
-       struct lista * prox;       
+       struct lista * prox;      
+        struct lista * ant;
 };
 
 typedef struct lista Lista;
@@ -25,6 +26,12 @@ Lista * inserir(Lista * pL, int valor){
       if(novo != NULL){
          novo->info = valor;
          novo->prox = pL;
+         novo->ant = NULL;
+         if (pL != NULL)
+         {
+         pL -> prox = novo;
+         }
+         
          printf("Lista[%d] \n", novo->info);
          return novo;        
       } 
@@ -135,5 +142,5 @@ void main(){
      
      system("PAUSE");     
     //  tenho que mudar algumas funções 
-    
+
 }
