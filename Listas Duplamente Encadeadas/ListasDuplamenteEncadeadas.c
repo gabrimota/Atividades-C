@@ -14,42 +14,47 @@ Lista* inicializaLista(){
        return NULL;       
 }
 
+
 bool vazia(Lista * pL){
-     if(pL->info == NULL)
-        return true;             
-     else
-         return false;
+    return (pL == NULL);
 }
 
-Lista * inserir(Lista * pL, int valor){
-      Lista * novo = (Lista *) malloc(sizeof(Lista));
-      if(novo != NULL){
-         novo->info = valor;
-         novo->prox = pL;
-         novo->antes = NULL;
-         if (pL != NULL)
-         {
-         pL -> antes = novo;
-         }
-         
-         printf("Lista[%d] \n", novo->info);
-         return novo;        
-      } 
-} 
-    // Forma mais segura
-// Lista* inserir(Lista* pL, int valor) {
-//     Lista* novo = (Lista*)malloc(sizeof(Lista));
-//     if (novo == NULL) {
-//         printf("Erro ao alocar memória.\n");
-//         return pL;
-//     }
-//     novo->info = valor;
-//     novo->prox = pL;
-//     novo->ant = NULL;
-//     if (pL != NULL)
-//         pL->ant = novo;
-//     return novo;
+// bool vazia(Lista * pL){
+//      if(pL->info == NULL)
+//         return true;             
+//      else
+//          return false;
 // }
+
+// Lista * inserir(Lista * pL, int valor){
+//       Lista * novo = (Lista *) malloc(sizeof(Lista));
+//       if(novo != NULL){
+//          novo->info = valor;
+//          novo->prox = pL;
+//          novo->antes = NULL;
+//          if (pL != NULL)
+//          {
+//          pL -> antes = novo;
+//          }
+         
+//          printf("Lista[%d] \n", novo->info);
+//          return novo;        
+//       } 
+// } 
+    // Forma mais segura
+Lista* inserir(Lista* pL, int valor) {
+    Lista* novo = (Lista*)malloc(sizeof(Lista));
+    if (novo == NULL) {
+        printf("Erro ao alocar memória.\n");
+        return pL;
+    }
+    novo->info = valor;
+    novo->prox = pL;
+    novo->antes = NULL;
+    if (pL != NULL)
+        pL->antes = novo;
+    return novo;
+}
 
 void imprimir(Lista * pL){
      
@@ -70,30 +75,31 @@ Lista * buscar(Lista *pL, int valor){
       return pL;  
 }
 
-Lista * remover(Lista * pL, int valor){
-     Lista * p = pL;     /* ponteiro do tipo Lista para percorrer a lista*/
-     Lista * ant = NULL; /* ponteiro do tipo Lista para elemento anterior */      
-     
-      /* procura elemento na lista, guardando anterior */
-      while(p != NULL && p->info != valor){
-           ant = p;
-           p = p->prox;  
-     }
-     
-     /* verifica se achou elemento */        
-     if(p == NULL){ 
-          return pL; /* n?o achou: retorna lista original */
-     }
-     
-     /* retira elemento */        
-     if(ant == NULL){      /*se entrar aqui ? porque ? o primeiro elemento da lista. Sen?o j? entrou pelo menos 1 vez no while acima */                                 
-        pL = p->prox;      /* retira elemento do in?cio */    
-     }
-     else{
-          ant->prox = p->prox; /* retira elemento do meio da lista */          
-     }
-     free(p);
-     return pL;     
+Lista * remover(Lista * pL, int valor) {
+    if (pL == NULL) return NULL;
+
+    Lista * p = pL;
+
+    while (p != NULL && p->info != valor) {
+        p = p->prox;
+    }
+
+    if (p == NULL) return pL; // Elemento não encontrado
+
+    if (p == pL) { // Primeiro nó
+        pL = p->prox;
+        if (pL != NULL) {
+            pL->antes = NULL;
+        }
+    } else {  
+        p->antes->prox = p->prox;
+        if (p->prox != NULL) {
+            p->prox->antes = p->antes;
+        }
+    }
+
+    free(p);
+    return pL;
 }
 
 void libera(Lista * pL){
